@@ -4,21 +4,27 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const service = require('../services/index');
 const jwtAuth = require('../services/authentication')
+const validate = require('../schema/requestSchema')
+const validateRequestSchema = require('../middlewares/requestSchemaValidator')
 
-/* GET home page. */
 
 router.get('/', async (req, res) => {
   res.send('Hello world!');
 });
 
-router.post('/register', async ( req, res)=>{
+
+router.post(
+  '/register',
+  validate.registerSchema,
+  validateRequestSchema,
+  async ( req, res)=>{
   try {
     const result = await service.register(req.body)
     if(result){
       res.status(201).send('user registered succesfully')
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
     res.status(500).send('internal server error')
   }
 })
@@ -28,7 +34,7 @@ router.post('/login', async ( req, res)=>{
     const result = await service.login(req.body)
     res.status(result.status).send(result.message)
     } catch (error) {
-    console.log(error)
+    console.error(error)
     res.status(500).send('internal server error')
   }
 })
@@ -44,7 +50,7 @@ router.post('/verify', async ( req, res)=>{
       res.status(403).send('forbiden')
     }
     } catch (error) {
-    console.log(error)
+    console.error(error)
     res.status(500).send('internal server error')
   }
 })

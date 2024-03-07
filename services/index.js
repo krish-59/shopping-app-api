@@ -41,9 +41,7 @@ const login = async (body) => {
     const passwordMatch = await bcrypt.compare(password,user[0].password)
 
     if(passwordMatch){
-      console.log(passwordMatch)
       const token = await jwtAuth.createToken(user[0])
-      console.log(token)
       return {
         status: 200,
         message: token
