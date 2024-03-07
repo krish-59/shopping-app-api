@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const { token } = require('morgan');
+const {req,res,next} = require('express'); 
 
 const createToken = async(user) => {
     try {
@@ -16,14 +16,18 @@ const createToken = async(user) => {
     }
 }
 
-const verifyToken = async(token) => {
+const verifyToken = async(req,res,next) => {
     try {
-        token = token.split(' ')
+        let token = req.headers.authorization.split(' ')
         let verified = jwt.verify(token[1], 'futuristiclabs')
-        return verified
+        if(verified) {
+            next()
+        }else{
+            return res.status(400).json('Invalid Token')
+        }
     } catch (error) {
-        console.log(error)
-        return false
+        console.error(error,"error")
+        return res.status(400).json('Invalid Token')
     }
 }
 
