@@ -62,10 +62,10 @@ Getting Started
 
 Clone the repository containing the source code.
 
-Install dependencies using npm install.
+Install dependencies using `npm install`.
 
 Configure database connection details.
 
-Run the application using npm run start.
+Run the application using `npm run start`.
 
-Access the Swagger documentation at http://localhost:PORT/docs (replace PORT with the application port).
+Access the Swagger documentation at `http://localhost:PORT/docs` (replace PORT with the application port).
