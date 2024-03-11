@@ -141,6 +141,11 @@ const updateItemSchema = [
         .toInt()
         .isInt()
         .withMessage('quantity should be specified'),
+    body('itemList.*.bought')
+        .notEmpty()
+        .toInt()
+        .isInt()
+        .withMessage('bought should be specified'),
 ]
 
 const deleteItemSchema = [

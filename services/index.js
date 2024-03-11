@@ -280,7 +280,7 @@ const insertItems = async (item, insertId) => {
 
 const updateItems = async (item, listId) => {
   try {
-    const updateItemQuery = `UPDATE shoppingApp.list_items SET name = '${item.name}', quantity = ${item.quantity} WHERE id = ${item.id} and shopping_list_id = ${listId}`
+    const updateItemQuery = `UPDATE shoppingApp.list_items SET name = '${item.name}', quantity = ${item.quantity}, bought = ${item.bought} WHERE id = ${item.id} and shopping_list_id = ${listId}`
     const updateItem = await db.executeQuery(updateItemQuery);
     return updateItem
   } catch (error) {
