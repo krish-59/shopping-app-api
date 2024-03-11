@@ -10,6 +10,7 @@ router.get('/', async (req, res) => {
   res.send('Hello world!');
 });
 
+/* User API's */
 router.post(
   '/register',
   validate.registerSchema,
@@ -21,16 +22,14 @@ router.post(
 
 router.post(
   '/login', 
+  validate.loginSchema,
+  validateRequestSchema,
   async ( req, res)=>{
-  try {
     const result = await service.login(req.body)
     res.status(result.status).send(result.message)
-    } catch (error) {
-    console.error(error)
-    res.status(500).send('internal server error')
-  }
 })
 
+/* Shopping List API's */
 router.post(
   '/verify',
   verifyToken,
@@ -44,12 +43,8 @@ router.post(
   validate.addShoppingListSchema,
   validateRequestSchema,
   async (req, res) => {
-  try {
-      const list = await service.creatShoppingList(req.body)
-      res.status(list.status).send(list.message)
-  } catch (error) {
+    const list = await service.creatShoppingList(req.body)
     res.status(list.status).send(list.message)
-  }
 })
 
 router.put(
@@ -73,6 +68,53 @@ router.delete(
   validateRequestSchema,
   async (req, res) => {
     const result = await service.deleteShoppingList(req.body,req.params)
+    res.status(result.status).send(result.message)
+  }
+)
+
+/* Shopping List Items API's */
+router.post(
+  '/shoppingList/items/:listId',
+  verifyToken,
+  validate.addItemSchema,
+  validateRequestSchema,
+  async (req, res) => {
+    const result = await service.addItemsToShoppingList(req.body, req.params)
+    res.status(result.status).send(result.message)
+  }
+)
+
+router.put(
+  '/shoppingList/items/:listId',
+  verifyToken,
+  validate.updateItemSchema,
+  validateRequestSchema,
+  async (req, res) => {
+    const result = await service.updateItemsInShoppingList(req.body, req.params)
+    res.status(result.status).send(result.message)
+  }
+)
+
+router.delete(
+  '/shoppingList/items/:listId',
+  verifyToken,
+  validate.deleteItemSchema,
+  validateRequestSchema,
+  async (req, res) => {
+    const result = await service.deleteItemsInShoppingList(req.body, req.params)
+    res.status(result.status).send(result.message)
+  }
+)
+
+/* Collabaration API's */
+
+router.post(
+  '/shoppingList/grantAccess/:listId',
+  verifyToken,
+  validate.grantShoppingListAccessSchema,
+  validateRequestSchema,
+  async (req, res) => {
+    const result = await service.giveAccessToShoppingList(req.body, req.params)
     res.status(result.status).send(result.message)
   }
 )

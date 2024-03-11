@@ -268,6 +268,237 @@ const options = {
                     }
                 }
             },
+            "/shoppingList/items/{listId}": {
+                post: {
+                    summary: "used to add items to a shopping list",
+                    tags: ["items"],
+                    responses: {
+                        201: {
+                            description: "shopping list updated succesfully"
+                        }
+
+                    },
+                    parameters: [
+                        {
+                            in: "path",
+                            name: "listId",
+                            type: "integer",
+                            required: true,
+                            description: "id of the list to be updated"
+                        }
+                    ],
+                    requestBody: {
+                        require: true,
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: "object",
+                                    properties: {
+                                        userId: {
+                                            type: "integer",
+                                            required: true,
+                                            description: "id of the user that is accesing the request",
+                                            example: 145
+                                        },                                        
+                                        itemList: {
+                                            type: "array",
+                                            required: false,
+                                            description: "array of items in the shopping list",
+                                            example: [
+                                                {
+                                                    "name": "orange",
+                                                    "quantity": 4,
+                                                    "isleId": 1
+                                                },
+                                                {
+                                                    "name": "apple",
+                                                    "quantity": 3,
+                                                    "isleId": 1
+                                                },
+                                                {
+                                                    "name": "tissue",
+                                                    "quantity": 2,
+                                                    "isleId": 3
+                                                },
+                                                {
+                                                    "name": "toothbrush",
+                                                    "quantity": 4,
+                                                    "isleId": 5
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                put: {
+                    summary: "used to update name or quantity of items in a shopping list",
+                    tags: ["items"],
+                    responses: {
+                        200: {
+                            description: "shopping list items updated succesfully"
+                        }
+
+                    },
+                    parameters: [
+                        {
+                            in: "path",
+                            name: "listId",
+                            type: "integer",
+                            required: true,
+                            description: "id of the list to be updated"
+                        }
+                    ],
+                    requestBody: {
+                        require: true,
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: "object",
+                                    properties: {
+                                        userId: {
+                                            type: "integer",
+                                            required: true,
+                                            description: "id of the user that is accesing the request",
+                                            example: 145
+                                        },                                        
+                                        itemList: {
+                                            type: "array",
+                                            required: false,
+                                            description: "array of items in the shopping list",
+                                            example: [
+                                                {
+                                                    "id": 12,
+                                                    "name": "orange",
+                                                    "quantity": 4
+                                                },
+                                                {
+                                                    "id":13,
+                                                    "name": "apple",
+                                                    "quantity": 3
+                                                },
+                                                {
+                                                    "id":14,
+                                                    "name": "tissue",
+                                                    "quantity": 2
+                                                },
+                                                {
+                                                    "id":25,
+                                                    "name": "toothbrush",
+                                                    "quantity": 4
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                delete: {
+                    summary: "used to delete items in a shopping list",
+                    tags: ["items"],
+                    responses: {
+                        200: {
+                            description: "items in the shopping list deleted succesfully"
+                        }
+
+                    },
+                    parameters: [
+                        {
+                            in: "path",
+                            name: "listId",
+                            type: "integer",
+                            required: true,
+                            description: "id of the list to be updated"
+                        }
+                    ],
+                    requestBody: {
+                        require: true,
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: "object",
+                                    properties: {
+                                        userId: {
+                                            type: "integer",
+                                            required: true,
+                                            description: "id of the user that is accesing the request",
+                                            example: 145
+                                        },                                        
+                                        itemList: {
+                                            type: "array",
+                                            required: false,
+                                            description: "array of items in the shopping list",
+                                            example: [
+                                                {
+                                                    "id":12
+                                                },
+                                                {
+                                                    "id":13
+                                                },
+                                                {
+                                                    "id":14
+                                                },
+                                                {
+                                                    "id":25
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/shoppingList/grantAccess/{listId}": {
+                post: {
+                    summary: "used to give access to a shopping list",
+                    tags: ["access"],
+                    responses: {
+                        200: {
+                            description: "access to shopping list granted successfully"
+                        }
+
+                    },
+                    parameters: [
+                        {
+                            in: "path",
+                            name: "listId",
+                            type: "integer",
+                            required: true,
+                            description: "id of the list to be updated"
+                        }
+                    ],
+                    requestBody: {
+                        require: true,
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: "object",
+                                    properties: {
+                                        userId: {
+                                            type: "integer",
+                                            required: true,
+                                            description: "id of the user that is accesing the request",
+                                            example: 145
+                                        },
+                                        assignedUserId: {
+                                            type: "integer",
+                                            required: true,
+                                            description: "id of the user that needs access to the shopping list",
+                                            example: 175
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+            },
         },
     },
     apis: ['./routes/index.js', 'app.js']
