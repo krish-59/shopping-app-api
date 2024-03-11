@@ -14,38 +14,38 @@ The following tables represent the core data model for the application:
 
 users:
 
-id (INT PRIMARY KEY)
-username (VARCHAR(255) UNIQUE)
-mobile_number (VARCHAR(20) UNIQUE) (Optional)
-email (VARCHAR(255) UNIQUE)
+id (INT PRIMARY KEY),
+username (VARCHAR(255) UNIQUE),
+mobile_number (VARCHAR(20) UNIQUE),
+email (VARCHAR(255) UNIQUE),
 password (VARCHAR(255))
 
 shopping_lists:
 
-id (INT PRIMARY KEY)
-name (VARCHAR(255))
-created_user_id (INT FOREIGN KEY REFERENCES users(id))
+id (INT PRIMARY KEY),
+name (VARCHAR(255)),
+created_user_id (INT FOREIGN KEY REFERENCES users(id)),
 description (TEXT)
 
 list_items:
 
-id (INT PRIMARY KEY)
-name (VARCHAR(255))
-quantity (INT)
-shopping_list_id (INT FOREIGN KEY REFERENCES shopping_lists(id))
-aisle_id (INT FOREIGN KEY REFERENCES aisle(id))
+id (INT PRIMARY KEY),
+name (VARCHAR(255)),
+quantity (INT),
+shopping_list_id (INT FOREIGN KEY REFERENCES shopping_lists(id)),
+aisle_id (INT FOREIGN KEY REFERENCES aisle(id)),
 bought (BOOLEAN)
 
 shopping_list_access:
 
-id (INT PRIMARY KEY)
-created_user_id (INT FOREIGN KEY REFERENCES users(id))
-access_user_id (INT FOREIGN KEY REFERENCES users(id))
-shopping_list_id (INT FOREIGN KEY REFERENCES shopping_lists(id
+id (INT PRIMARY KEY),
+created_user_id (INT FOREIGN KEY REFERENCES users(id)),
+access_user_id (INT FOREIGN KEY REFERENCES users(id)),
+shopping_list_id (INT FOREIGN KEY REFERENCES shopping_lists(id)
 
 aisle:
 
-id (INT PRIMARY KEY)
+id (INT PRIMARY KEY),
 name (VARCHAR(255))
 
 Design Choices
